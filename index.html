@@ -1,796 +1,503 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>InsightBI — Power BI, Excel & Relatórios</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:     #0D1B2A;
-      --bg2:    #112236;
-      --accent: #00D4FF;
-      --white:  #F0F4F8;
-      --muted:  #8899AA;
-      --border: rgba(0,212,255,0.15);
-      --card:   rgba(30,58,95,0.40);
-    }
-    html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--white); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>InsightBi · BI & Analytics sob medida</title>
+<meta name="description" content="InsightBi — planilhas de controle, dashboards e relatórios analíticos e executivos, com o rigor de quem vem do mercado financeiro." />
+<meta name="theme-color" content="#0A0E1A" />
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 6vw;
-      background: rgba(13,27,42,0.92); backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-    .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.35rem; letter-spacing: -0.02em; }
-    .logo span { color: var(--accent); }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-wa {
-      display: flex; align-items: center; gap: 7px;
-      background: #25d366; color: #fff;
-      padding: 9px 18px; border-radius: 7px;
-      font-size: 0.85rem; font-weight: 700; text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .nav-wa:hover { opacity: 0.88; }
+<!-- Open Graph (preview ao compartilhar no WhatsApp/LinkedIn) -->
+<meta property="og:title" content="InsightBi · BI & Analytics sob medida" />
+<meta property="og:description" content="Planilhas de controle, dashboards e relatórios analíticos e executivos, com rigor de mercado financeiro." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:image" content="og-image.png" /><!-- após hospedar, troque por URL absoluta: https://seudominio/og-image.png -->
+<meta property="og:url" content="" /><!-- preencha com a URL do site após hospedar -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="InsightBi · BI & Analytics sob medida" />
+<meta name="twitter:description" content="Planilhas, dashboards e relatórios com rigor de mercado financeiro." />
+<meta name="twitter:image" content="og-image.png" />
 
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center; gap: 5rem;
-      padding: 120px 6vw 80px;
-    }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.73rem; font-weight: 600; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 1.6rem;
-    }
-    .eyebrow::before { content: ''; width: 26px; height: 2px; background: var(--accent); }
-    h1 {
-      font-family: 'Anton', sans-serif; font-weight: 400;
-      font-size: clamp(2.8rem, 5.4vw, 4.2rem);
-      line-height: 1.06; letter-spacing: -0.02em; margin-bottom: 1.6rem;
-    }
-    h1 em { font-style: normal; color: var(--accent); }
-    .hero-desc { font-size: 1.05rem; color: var(--muted); max-width: 460px; margin-bottom: 2.4rem; line-height: 1.8; font-weight: 300; }
-    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { background: var(--accent); color: var(--bg); padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; }
-    .btn-primary:hover { background: #33ddff; }
-    .btn-wa { display: flex; align-items: center; gap: 8px; background: #25d366; color: #fff; padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: opacity 0.2s; }
-    .btn-wa:hover { opacity: 0.88; }
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><rect x='3' y='3' width='42' height='42' rx='11' fill='%230E1424' stroke='%232A3550'/><rect x='13' y='28' width='5' height='8' rx='2' fill='%232C6F66'/><rect x='21' y='22' width='5' height='14' rx='2' fill='%232BD4B8' opacity='.55'/><rect x='30' y='16' width='5' height='20' rx='2' fill='%232BD4B8'/><circle cx='32' cy='11' r='3.4' fill='%233CEBCE'/></svg>" />
 
-    /* HERO VISUAL */
-    .hero-visual { display: flex; flex-direction: column; gap: 14px; }
-    .grid-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    .data-grid { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--card); backdrop-filter: blur(8px); }
-    .grid-header { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; background: rgba(0,212,255,0.07); border-bottom: 1px solid var(--border); }
-    .gh, .gc { padding: 9px 14px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--accent); border-right: 1px solid var(--border); }
-    .gh:last-child, .gc:last-child { border-right: none; }
-    .grid-row { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; border-bottom: 1px solid rgba(0,212,255,0.06); }
-    .grid-row:last-child { border-bottom: none; }
-    .gc { font-size: 0.8rem; color: var(--white); font-weight: 400; }
-    .gc.label { color: var(--muted); }
-    .gc.pos { color: #4ade80; font-weight: 600; }
-    .gc.neg { color: #f87171; font-weight: 600; }
-    .kpi-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
-    .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
-    .kpi-value { font-family: 'Syne', sans-serif; font-size: 1.55rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; }
-    .kpi-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
-    @keyframes cellIn { 0% { opacity:0; background:rgba(0,212,255,0.2); } 100% { opacity:1; background:transparent; } }
-    .gc.animate { animation: cellIn 0.45s ease forwards; opacity: 0; }
+<!-- Analytics (Plausible): tire do comentário e troque SEU-DOMINIO após hospedar
+<script defer data-domain="SEU-DOMINIO" src="https://plausible.io/js/script.js"></script>
+-->
 
-    /* SEÇÃO BASE */
-    section { padding: 90px 6vw; }
-    .section-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
-    h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem; }
-    .section-desc { font-size: 1rem; color: var(--muted); max-width: 560px; line-height: 1.8; font-weight: 300; }
-
-    /* SERVIÇOS */
-    .services { background: var(--bg2); }
-    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 3rem; }
-    .svc-card {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 32px 28px; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden;
-    }
-    .svc-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-    .svc-card:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-3px); }
-    .svc-card:hover::before { opacity: 1; }
-    .svc-icon { width: 54px; height: 54px; margin-bottom: 1.4rem; }
-    .svc-card h3 { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.7rem; }
-    .svc-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; font-weight: 300; }
-    .svc-list { list-style: none; margin-top: 1.2rem; display: flex; flex-direction: column; gap: 8px; }
-    .svc-list li { font-size: 0.84rem; color: var(--white); display: flex; align-items: center; gap: 8px; }
-    .svc-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-
-    /* CALCULADORA */
-    .calc-section { background: var(--bg); }
-    .calc-top-cta {
-      display: flex; align-items: center; gap: 12px;
-      margin: 1.6rem 0 0.4rem; flex-wrap: wrap;
-    }
-    .calc-top-cta span { font-size: 0.88rem; color: var(--muted); }
-    .calc-top-cta a {
-      display: inline-flex; align-items: center; gap: 7px;
-      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25);
-      color: #25d366; padding: 7px 16px; border-radius: 50px;
-      font-size: 0.83rem; font-weight: 600; text-decoration: none; transition: background 0.2s;
-    }
-    .calc-top-cta a:hover { background: rgba(37,211,102,0.18); }
-    .calc-tabs { display: flex; gap: 10px; margin-top: 1.4rem; flex-wrap: wrap; }
-    .calc-tab {
-      display: flex; align-items: center; gap: 7px;
-      padding: 9px 20px; border-radius: 50px; border: 1.5px solid var(--border);
-      background: transparent; cursor: pointer;
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--muted);
-      transition: all 0.18s; user-select: none;
-    }
-    .calc-tab:hover { border-color: rgba(0,212,255,0.35); color: var(--white); }
-    .calc-tab.active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-    .calc-tab .tab-count { background: rgba(0,0,0,0.15); border-radius: 50px; padding: 1px 7px; font-size: 0.73rem; font-weight: 700; min-width: 20px; text-align: center; }
-    .calc-panels { margin-top: 1.4rem; }
-    .calc-panel { display: none; }
-    .calc-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 12px; }
-    .calc-tcard {
-      background: var(--card); border: 1.5px solid var(--border); border-radius: 12px;
-      padding: 18px 20px; cursor: pointer; user-select: none;
-      transition: border-color 0.18s, transform 0.18s; position: relative; overflow: hidden;
-    }
-    .calc-tcard:hover { border-color: rgba(0,212,255,0.35); transform: translateY(-2px); }
-    .calc-tcard.sel { border-color: var(--accent); background: rgba(0,212,255,0.07); }
-    .tcard-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-    .tcard-check { width: 20px; height: 20px; border-radius: 5px; border: 1.5px solid var(--muted); display: flex; align-items: center; justify-content: center; transition: all 0.18s; font-size: 11px; font-weight: 700; color: transparent; }
-    .calc-tcard.sel .tcard-check { background: var(--accent); border-color: var(--accent); color: var(--bg); }
-    .tcard-badge { font-size: 0.7rem; font-weight: 700; padding: 2px 9px; border-radius: 50px; }
-    .tcard-badge.basic { background: rgba(74,222,128,0.12); color: #4ade80; }
-    .tcard-badge.adv   { background: rgba(0,212,255,0.12); color: var(--accent); }
-    .tcard-label { font-family: 'Syne', sans-serif; font-size: 0.92rem; font-weight: 700; color: var(--white); line-height: 1.3; margin-bottom: 5px; letter-spacing: -0.01em; }
-    .tcard-price { font-size: 0.78rem; font-weight: 500; }
-    .tcard-price.basic { color: #4ade80; }
-    .tcard-price.adv   { color: var(--accent); }
-
-    /* BARRA FLUTUANTE */
-    .calc-float {
-      position: sticky; bottom: 16px; z-index: 50; margin-top: 20px;
-      background: rgba(13,27,42,0.95); backdrop-filter: blur(16px);
-      border: 1px solid var(--border); border-radius: 14px; padding: 16px 22px;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.45);
-      opacity: 0; transform: translateY(10px); transition: opacity 0.3s, transform 0.3s; pointer-events: none;
-    }
-    .calc-float.visible { opacity: 1; transform: none; pointer-events: all; }
-    .calc-float-left { flex: 1; min-width: 160px; }
-    .calc-float-lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 5px; }
-    .calc-float-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .calc-float-tag { font-size: 0.73rem; background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); padding: 3px 9px; border-radius: 50px; }
-    .calc-float-right { display: flex; align-items: center; gap: 12px; }
-    .calc-total-wrap { text-align: right; }
-    .calc-total-lbl { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
-    .calc-total-val { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; }
-    .calc-total-val em { font-style: normal; color: var(--accent); }
-    .calc-btns { display: flex; gap: 8px; }
-    .cbtn {
-      padding: 11px 20px; border-radius: 8px; border: none; cursor: pointer;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.85rem;
-      display: flex; align-items: center; gap: 6px; white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-    .cbtn:hover { opacity: 0.88; }
-    .cbtn:disabled { opacity: 0.3; cursor: default; }
-    .cbtn-wa  { background: #25d366; color: #fff; }
-    .cbtn-mail{ background: transparent; border: 1.5px solid var(--accent) !important; color: var(--accent); }
-
-    /* CONTATO */
-    .contact-section { background: var(--bg2); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
-    .contact-info { display: flex; flex-direction: column; gap: 1.4rem; }
-    .contact-item {
-      display: flex; align-items: center; gap: 14px;
-      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 18px 20px; text-decoration: none; color: var(--white);
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .contact-item:hover { border-color: rgba(0,212,255,0.4); transform: translateX(4px); }
-    .contact-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
-    .ci-wa   { background: rgba(37,211,102,0.12); }
-    .ci-mail { background: rgba(0,212,255,0.12); }
-    .ci-li   { background: rgba(96,165,250,0.12); }
-    .contact-item-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; }
-    .contact-item-val   { font-size: 0.92rem; font-weight: 500; }
-    .contact-promise {
-      background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 32px 28px;
-    }
-    .contact-promise h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 1.2rem; letter-spacing: -0.02em; line-height: 1.2; }
-    .promise-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .promise-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
-    .promise-list li span.icon { color: var(--accent); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-    .promise-cta {
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      width: 100%; margin-top: 1.8rem; padding: 14px;
-      background: #25d366; color: #fff; border: none; border-radius: 9px;
-      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.95rem;
-      cursor: pointer; text-decoration: none; transition: opacity 0.2s;
-    }
-    .promise-cta:hover { opacity: 0.88; }
-
-    /* FOOTER MÍNIMO */
-    .footer-min {
-      background: var(--bg); border-top: 1px solid var(--border);
-      padding: 24px 6vw; display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 1rem;
-      font-size: 0.8rem; color: var(--muted);
-    }
-
-    /* REVEAL */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-
-    @media (max-width: 960px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
-      .services-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .nav-links { display: none; }
-    }
-    @media (max-width: 600px) {
-      .calc-float { flex-direction: column; align-items: stretch; }
-      .calc-btns { flex-direction: column; }
-      .cbtn { justify-content: center; }
-    }
-
-
-    /* ── TRIAGEM ─────────────────────────────────── */
-    .tr-ov {
-      position: fixed; inset: 0; z-index: 400;
-      background: rgba(5,12,22,0.92); backdrop-filter: blur(10px);
-      display: flex; align-items: flex-end; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.22s;
-    }
-    .tr-ov.on { opacity: 1; pointer-events: all; }
-    .tr-box {
-      background: #0f2035; border: 1px solid rgba(0,212,255,0.2);
-      border-radius: 24px 24px 0 0;
-      width: 100%; max-width: 480px;
-      padding: 12px 0 32px;
-      transform: translateY(100%);
-      transition: transform 0.32s cubic-bezier(.32,.72,0,1);
-      max-height: 88vh; overflow-y: auto;
-    }
-    .tr-ov.on .tr-box { transform: none; }
-    .tr-handle { width: 36px; height: 4px; border-radius: 2px; background: rgba(0,212,255,0.2); margin: 0 auto 4px; }
-    .tr-topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 22px 0; }
-    .tr-brand-sm { font-family:'Syne',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.1em; color: var(--muted); }
-    .tr-brand-sm span { color: var(--accent); }
-    .tr-x { background: rgba(255,255,255,0.07); border: none; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; color: var(--muted); font-size: 0.8rem; display:flex; align-items:center; justify-content:center; transition: all 0.15s; }
-    .tr-x:hover { background: rgba(255,255,255,0.14); color: var(--white); }
-    .tr-prog { display: flex; gap: 5px; padding: 14px 22px 0; }
-    .tr-prog-d { height: 3px; flex:1; border-radius:2px; background: rgba(0,212,255,0.12); transition: background 0.3s; }
-    .tr-prog-d.on { background: var(--accent); }
-    .tr-body { padding: 18px 22px 0; }
-    .tr-q { font-family:'Syne',sans-serif; font-size:1.15rem; font-weight:800; letter-spacing:-0.02em; line-height:1.25; margin-bottom:16px; }
-    .tr-q em { font-style:normal; color:var(--accent); }
-    .tr-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
-    .tr-opt {
-      padding: 14px 12px; border-radius:12px;
-      border: 1.5px solid rgba(0,212,255,0.15); background: rgba(30,58,95,0.4);
-      cursor: pointer; user-select:none; text-align:left;
-      transition: border-color 0.15s, background 0.15s, transform 0.12s;
-    }
-    .tr-opt:hover { border-color: rgba(0,212,255,0.5); transform: scale(1.02); background: rgba(0,212,255,0.07); }
-    .tr-opt.sel { border-color: var(--accent); background: rgba(0,212,255,0.1); }
-    .tr-opt-ic { font-size:1.3rem; margin-bottom:7px; }
-    .tr-opt-lb { font-family:'Syne',sans-serif; font-size:0.88rem; font-weight:800; color:var(--white); line-height:1.2; }
-    .tr-opt-sb { font-size:0.72rem; color:var(--muted); margin-top:3px; line-height:1.35; }
-    .tr-inp {
-      width:100%; padding:13px 15px; border-radius:11px;
-      background: rgba(30,58,95,0.4); border: 1.5px solid rgba(0,212,255,0.15);
-      color:var(--white); font-family:'Inter',sans-serif; font-size:0.93rem;
-      outline:none; transition: border-color 0.18s;
-    }
-    .tr-inp:focus { border-color: var(--accent); }
-    .tr-inp::placeholder { color: var(--muted); }
-    .tr-nav { margin-top:18px; display:flex; gap:9px; }
-    .tr-btn-next {
-      flex:1; padding:13px; border-radius:11px; border:none;
-      background: var(--accent); color: var(--bg);
-      font-family:'Syne',sans-serif; font-weight:800; font-size:0.92rem;
-      cursor:pointer; transition: background 0.18s;
-    }
-    .tr-btn-next:hover { background:#33ddff; }
-    .tr-btn-next:disabled { opacity:0.3; cursor:default; background: var(--accent); }
-    .tr-btn-back {
-      padding:13px 16px; border-radius:11px;
-      background: none; border: 1.5px solid rgba(0,212,255,0.2);
-      color:var(--muted); font-family:'Syne',sans-serif; font-weight:700;
-      font-size:0.88rem; cursor:pointer; transition: all 0.15s;
-    }
-    .tr-btn-back:hover { border-color:var(--accent); color:var(--white); }
-    .tr-btn-wa {
-      flex:1; padding:13px; border-radius:11px; border:none;
-      background: #25d366; color:#fff;
-      font-family:'Syne',sans-serif; font-weight:800; font-size:0.92rem;
-      cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px;
-      transition: opacity 0.18s;
-    }
-    .tr-btn-wa:hover { opacity:0.88; }
-    .tr-btn-wa:disabled { opacity:0.3; cursor:default; }
-  </style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <div class="logo">Insight<span>BI</span></div>
-  <ul class="nav-links">
-    <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#orcamento">Orçamento</a></li>
-    <li><a href="#contato">Contato</a></li>
-  </ul>
-  <div class="nav-right">
-    <a href="#" onclick="trOpen();return false;" class="nav-wa">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      WhatsApp
-    </a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-text">
-    <div class="eyebrow">Consultoria Especializada</div>
-    <h1>Seus dados,<br /><em>decisões mais</em><br />inteligentes.</h1>
-    <p class="hero-desc">Construímos, ajustamos ou deixamos mais eficientes Dashboards, Planilhas e Relatórios. A reunião de alinhamento já está incluída.</p>
-    <div class="hero-actions">
-      <a href="#orcamento" class="btn-primary">Monte seu orçamento</a>
-      <a href="#" onclick="trOpen();return false;" class="btn-wa">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        Falar agora
-      </a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="grid-label">Visão executiva — receita por região</div>
-    <div class="data-grid" id="dataGrid">
-      <div class="grid-header">
-        <div class="gh">Região</div><div class="gh">Meta</div><div class="gh">Realizado</div><div class="gh">Δ%</div>
-      </div>
-    </div>
-    <div class="kpi-strip">
-      <div class="kpi-card"><div class="kpi-value" id="kv1">—</div><div class="kpi-label">Receita Total</div></div>
-      <div class="kpi-card"><div class="kpi-value" id="kv2">—</div><div class="kpi-label">Meta Atingida</div></div>
-      <div class="kpi-card"><div class="kpi-value" id="kv3">—</div><div class="kpi-label">Crescimento</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVIÇOS -->
-<section class="services" id="servicos">
-  <div class="section-tag">O que fazemos</div>
-  <h2>Construímos, ajustamos<br />ou otimizamos</h2>
-  <p class="section-desc">Dashboards, Planilhas e Relatórios — do zero ou melhorando o que você já tem.</p>
-  <div class="services-grid reveal">
-
-    <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="10" width="56" height="36" rx="4" stroke="#00D4FF" stroke-width="2"/>
-        <line x1="4" y1="20" x2="60" y2="20" stroke="#00D4FF" stroke-width="1.5" opacity="0.4"/>
-        <rect x="12" y="26" width="7" height="14" rx="2" fill="#00D4FF" opacity="0.25"/>
-        <rect x="23" y="22" width="7" height="18" rx="2" fill="#00D4FF" opacity="0.55"/>
-        <rect x="34" y="28" width="7" height="12" rx="2" fill="#00D4FF" opacity="0.25"/>
-        <rect x="45" y="18" width="7" height="22" rx="2" fill="#00D4FF" opacity="0.9"/>
-        <polyline points="15,33 26,28 37,31 48,22" stroke="#00D4FF" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.7"/>
-        <line x1="32" y1="46" x2="32" y2="54" stroke="#00D4FF" stroke-width="2"/>
-        <line x1="22" y1="54" x2="42" y2="54" stroke="#00D4FF" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <h3>Dashboards Power BI</h3>
-      <p>Criação de dashboards e métricas executivas com modelo semântico auditável.</p>
-      <ul class="svc-list">
-        <li>KPIs e métricas de negócio</li>
-        <li>Segurança por linha (RLS)</li>
-        <li>Criação e publicação de dashboards</li>
-        <li>Modelagem DAX e medidas auditáveis</li>
-      </ul>
-    </div>
-
-    <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="6" y="8" width="52" height="48" rx="4" stroke="#00D4FF" stroke-width="2"/>
-        <rect x="6" y="8" width="52" height="12" rx="4" fill="#00D4FF" opacity="0.15"/>
-        <line x1="24" y1="8" x2="24" y2="56" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
-        <line x1="42" y1="8" x2="42" y2="56" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
-        <line x1="6" y1="28" x2="58" y2="28" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
-        <line x1="6" y1="38" x2="58" y2="38" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
-        <line x1="6" y1="48" x2="58" y2="48" stroke="#00D4FF" stroke-width="1" opacity="0.3"/>
-        <path d="M47 43 L47 35 A8 8 0 0 1 54 43 Z" fill="#00D4FF" opacity="0.9"/>
-        <path d="M47 43 L54 43 A8 8 0 0 1 43 49 Z" fill="#00D4FF" opacity="0.5"/>
-        <path d="M47 43 A8 8 0 0 1 47 35 L47 43 Z" fill="#00D4FF" opacity="0.25"/>
-        <text x="10" y="22" font-family="monospace" font-size="8" fill="#00D4FF" opacity="0.9">=SUM</text>
-        <rect x="10" y="32" width="10" height="3" rx="1" fill="#00D4FF" opacity="0.6"/>
-        <rect x="10" y="42" width="16" height="3" rx="1" fill="#00D4FF" opacity="0.6"/>
-      </svg>
-      <h3>Excel Avançado</h3>
-      <p>Fórmulas, gráficos, tabelas dinâmicas e Power Query para planilhas que realmente funcionam.</p>
-      <ul class="svc-list">
-        <li>Fórmulas e funções básicas e avançadas</li>
-        <li>Gráficos e visualizações</li>
-        <li>Tabelas dinâmicas</li>
-        <li>Power Query e automação</li>
-      </ul>
-    </div>
-
-    <div class="svc-card">
-      <svg class="svc-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="6" width="36" height="48" rx="4" stroke="#00D4FF" stroke-width="2"/>
-        <path d="M38 6 L46 14 L38 14 Z" fill="#00D4FF" opacity="0.2" stroke="#00D4FF" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M38 6 L46 14 L38 14 L38 6" stroke="#00D4FF" stroke-width="1.5" fill="none"/>
-        <line x1="18" y1="22" x2="38" y2="22" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
-        <line x1="18" y1="29" x2="38" y2="29" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
-        <line x1="18" y1="36" x2="32" y2="36" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-        <circle cx="48" cy="46" r="10" fill="#00D4FF" opacity="0.15" stroke="#00D4FF" stroke-width="1.5"/>
-        <polyline points="42,50 46,46 50,48 54,42" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="54" cy="42" r="2" fill="#00D4FF"/>
-      </svg>
-      <h3>Relatórios Gerenciais</h3>
-      <p>Estruturação de KPIs e relatórios periódicos com narrativa orientada à decisão executiva.</p>
-      <ul class="svc-list">
-        <li>Definição e estruturação de KPIs</li>
-        <li>Relatórios periódicos automatizados</li>
-        <li>Narrativa orientada à decisão</li>
-        <li>Apresentações executivas</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-<!-- CALCULADORA -->
-<section class="calc-section" id="orcamento">
-  <div class="section-tag">Monte seu plano</div>
-  <h2>Selecione os serviços<br />e veja o valor por hora</h2>
-  <p class="section-desc">Escolha os tópicos que precisa — o total é calculado automaticamente. <strong style="color:var(--white)">A reunião de alinhamento já está incluída.</strong></p>
-
-  <div class="calc-top-cta">
-    <span>Não sabe por onde começar?</span>
-    <a href="#" onclick="trOpen();return false;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-      Falar pelo WhatsApp
-    </a>
-  </div>
-
-  <div class="calc-tabs reveal" id="calcTabs"></div>
-  <div class="calc-panels" id="calcPanels"></div>
-  <div class="calc-float" id="calcFloat">
-    <div class="calc-float-left">
-      <div class="calc-float-lbl">Selecionados</div>
-      <div class="calc-float-tags" id="calcFloatTags"></div>
-    </div>
-    <div class="calc-float-right">
-      <div class="calc-total-wrap">
-        <div class="calc-total-lbl">Total / hora</div>
-        <div class="calc-total-val">R$&nbsp;<em id="calcTotalVal">0</em></div>
-      </div>
-      <div class="calc-btns">
-        <button class="cbtn cbtn-wa" id="calcBtnWa" disabled>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          WhatsApp
-        </button>
-        <button class="cbtn cbtn-mail" id="calcBtnMail" disabled>E-mail →</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTATO -->
-<section class="contact-section" id="contato">
-  <div class="section-tag">Fale com a gente</div>
-  <h2>Respondemos<br />no mesmo dia</h2>
-  <div class="contact-grid reveal">
-    <div class="contact-info">
-      <a href="#" onclick="trOpen();return false;" class="contact-item">
-        <div class="contact-icon ci-wa">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        </div>
-        <div><div class="contact-item-label">WhatsApp</div><div class="contact-item-val">+55 11 97064-2228</div></div>
-      </a>
-      <a href="mailto:contato@insightbi.com.br" class="contact-item">
-        <div class="contact-icon ci-mail">✉️</div>
-        <div><div class="contact-item-label">E-mail</div><div class="contact-item-val">contato@insightbi.com.br</div></div>
-      </a>
-      <a href="#" class="contact-item">
-        <div class="contact-icon ci-li">💼</div>
-        <div><div class="contact-item-label">LinkedIn</div><div class="contact-item-val">InsightBI Consultoria</div></div>
-      </a>
-    </div>
-    <div class="contact-promise">
-      <h3>30 minutos de conversa,<br />sem compromisso</h3>
-      <ul class="promise-list">
-        <li><span class="icon">✓</span> Reunião de alinhamento já incluída em todos os serviços</li>
-        <li><span class="icon">✓</span> Diagnóstico gratuito na primeira conversa</li>
-        <li><span class="icon">✓</span> Resposta no mesmo dia útil</li>
-        <li><span class="icon">✓</span> Sem burocracia — direto ao ponto</li>
-      </ul>
-      <a href="#" onclick="trOpen();return false;" class="promise-cta">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        Iniciar conversa agora
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<div class="footer-min">
-  <div class="logo" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;">Insight<span style="color:var(--accent)">BI</span></div>
-  <span>© 2025 InsightBI Consultoria · São Paulo, Brasil</span>
-  <span>contato@insightbi.com.br</span>
-</div>
-
-<script>
-  // HERO GRID
-  const rows=[{label:'Sul',meta:'R$ 1,2M',real:'R$ 1,31M',delta:'+9,2%',pos:true},{label:'Sudeste',meta:'R$ 3,8M',real:'R$ 4,05M',delta:'+6,6%',pos:true},{label:'Nordeste',meta:'R$ 2,1M',real:'R$ 1,97M',delta:'-6,2%',pos:false},{label:'Centro-O.',meta:'R$ 900k',real:'R$ 1,04M',delta:'+15,6%',pos:true},{label:'Norte',meta:'R$ 650k',real:'R$ 610k',delta:'-6,2%',pos:false}];
-  const grid=document.getElementById('dataGrid'); let delay=0;
-  rows.forEach(r=>{const row=document.createElement('div');row.className='grid-row';row.innerHTML=[`<div class="gc label animate" style="animation-delay:${delay}ms">${r.label}</div>`,`<div class="gc animate" style="animation-delay:${delay+60}ms">${r.meta}</div>`,`<div class="gc animate" style="animation-delay:${delay+120}ms">${r.real}</div>`,`<div class="gc ${r.pos?'pos':'neg'} animate" style="animation-delay:${delay+180}ms">${r.delta}</div>`].join('');grid.appendChild(row);delay+=120;});
-  function animateValue(id,final){const el=document.getElementById(id);const chars='0123456789,.%+MkRS$ —';let i=0;const iv=setInterval(()=>{el.textContent=final.split('').map((c,idx)=>idx<i?c:chars[Math.floor(Math.random()*chars.length)]).join('');if(++i>final.length){el.textContent=final;clearInterval(iv);}},40);}
-  setTimeout(()=>{animateValue('kv1','R$ 9,0M');animateValue('kv2','88%');animateValue('kv3','+6,1%');},900);
-
-  // CALCULADORA
-  (function(){
-    var svcData=[
-      {icon:'📊',title:'Power BI',sub:'Dashboards e métricas',items:[{label:'KPIs e métricas de negócio',price:50,tier:'basic'},{label:'Segurança por linha (RLS)',price:50,tier:'basic'},{label:'Criação e publicação de dashboards',price:100,tier:'adv'},{label:'Modelagem DAX e medidas auditáveis',price:100,tier:'adv'}]},
-      {icon:'📗',title:'Excel',sub:'Fórmulas, gráficos e Power Query',items:[{label:'Fórmulas e funções básicas',price:50,tier:'basic'},{label:'Fórmulas e funções avançadas',price:100,tier:'adv'},{label:'Gráficos e visualizações',price:100,tier:'adv'},{label:'Tabelas dinâmicas',price:100,tier:'adv'},{label:'Power Query e automação',price:100,tier:'adv'}]},
-      {icon:'📋',title:'Relatórios',sub:'KPIs e narrativa executiva',items:[{label:'Definição e estruturação de KPIs',price:100,tier:'adv'},{label:'Relatórios periódicos automatizados',price:100,tier:'adv'},{label:'Narrativa orientada à decisão',price:100,tier:'adv'},{label:'Apresentações executivas',price:100,tier:'adv'}]}
-    ];
-    var selected={};
-    var tabsEl=document.getElementById('calcTabs');
-    var panelsEl=document.getElementById('calcPanels');
-    var floatEl=document.getElementById('calcFloat');
-
-    svcData.forEach(function(col,ci){
-      var tab=document.createElement('button');
-      tab.className='calc-tab'+(ci===0?' active':'');
-      tab.innerHTML=col.icon+' '+col.title+' <span class="tab-count" id="tc-'+ci+'">0</span>';
-      tab.addEventListener('click',function(){
-        document.querySelectorAll('.calc-tab').forEach(function(t,i){t.classList.toggle('active',i===ci);});
-        document.querySelectorAll('.calc-panel').forEach(function(p,i){p.classList.toggle('active',i===ci);});
-      });
-      tabsEl.appendChild(tab);
-
-      var panel=document.createElement('div');
-      panel.className='calc-panel'+(ci===0?' active':'');
-      col.items.forEach(function(item,ii){
-        var key=ci+'-'+ii;
-        var card=document.createElement('div');
-        card.className='calc-tcard';
-        card.innerHTML='<div class="tcard-top"><div class="tcard-check">✓</div><span class="tcard-badge '+item.tier+'">R$ '+item.price+',00/h</span></div><div class="tcard-label">'+item.label+'</div><div class="tcard-price '+item.tier+'">'+(item.tier==='basic'?'● R$ 50,00 por hora':'● R$ 100,00 por hora')+'</div>';
-        card.addEventListener('click',function(){
-          if(selected[key]){delete selected[key];card.classList.remove('sel');}
-          else{selected[key]={label:item.label,price:item.price,ci:ci};card.classList.add('sel');}
-          calcUpdate();
-        });
-        panel.appendChild(card);
-      });
-      panelsEl.appendChild(panel);
-    });
-
-    function animTotal(target){
-      var el=document.getElementById('calcTotalVal');
-      var start=parseInt(el.textContent.replace(/\D/g,''))||0;
-      var diff=target-start; var steps=18; var step=0;
-      clearInterval(window._ta);
-      window._ta=setInterval(function(){step++;var v=Math.round(start+diff*(step/steps));el.textContent=v.toLocaleString('pt-BR');if(step>=steps){el.textContent=target.toLocaleString('pt-BR');clearInterval(window._ta);}},18);
-    }
-
-    function calcUpdate(){
-      var total=0; var counts=[0,0,0]; var tags='';
-      Object.values(selected).forEach(function(s){total+=s.price;counts[s.ci]++;tags+='<span class="calc-float-tag">'+s.label+'</span>';});
-      svcData.forEach(function(_,ci){var el=document.getElementById('tc-'+ci);if(el)el.textContent=counts[ci];});
-      animTotal(total);
-      var hasAny=Object.keys(selected).length>0;
-      document.getElementById('calcFloatTags').innerHTML=tags||'<span style="font-size:0.8rem;color:var(--muted)">Selecione um ou mais serviços acima</span>';
-      document.getElementById('calcBtnWa').disabled=!hasAny;
-      document.getElementById('calcBtnMail').disabled=!hasAny;
-      floatEl.classList.toggle('visible',hasAny);
-    }
-
-    document.getElementById('calcBtnWa').addEventListener('click',function(){
-      var lines=Object.values(selected).map(function(s){return s.label+' (R$ '+s.price+',00/h)';});
-      var total=Object.values(selected).reduce(function(a,s){return a+s.price;},0);
-      _trExtra = lines.join('\n')+'\nTotal: R$ '+total.toLocaleString('pt-BR')+',00/h';
-      trOpen();
-    });
-    document.getElementById('calcBtnMail').addEventListener('click',function(){
-      var lines=Object.values(selected).map(function(s){return '- '+s.label+' (R$ '+s.price+',00/h)';});
-      var total=Object.values(selected).reduce(function(a,s){return a+s.price;},0);
-      var body='Olá, equipe InsightBI!\n\nGostaria de solicitar um orçamento:\n\n'+lines.join('\n')+'\n\nTotal estimado: R$ '+total.toLocaleString('pt-BR')+',00/h\n\nAtenciosamente,';
-      window.location.href='mailto:contato@insightbi.com.br?subject=Orçamento InsightBI&body='+encodeURIComponent(body);
-    });
-
-    calcUpdate();
-  })();
-
-  // SCROLL REVEAL + NAV ACTIVE
-  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-  const secs=document.querySelectorAll('section[id]');
-  const navAs=document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id;});navAs.forEach(a=>{a.style.color=a.getAttribute('href')==='#'+cur?'var(--accent)':'';});});
-</script>    <div id="triageSteps"></div>
-  </div>
-</div>
-    <div class="tr-head">
-      <span class="tr-brand">INSIGHT<span style="color:var(--accent)">BI</span> · Atendimento</span>
-      <button class="tr-close" onclick="trClose()">✕</button>
-    </div>
-    <div class="tr-dots" id="trDots"></div>
-    <div class="tr-body" id="trBody"></div>
-  </div>
-</div>
-
-
-
-<!-- TRIAGEM -->
-<div class="tr-ov" id="trOv">
-  <div class="tr-box">
-    <div class="tr-handle"></div>
-    <div class="tr-topbar">
-      <span class="tr-brand-sm">INSIGHT<span>BI</span> · Atendimento</span>
-      <button class="tr-x" onclick="trClose()">✕</button>
-    </div>
-    <div class="tr-prog" id="trProg"></div>
-    <div class="tr-body" id="trBody"></div>
-  </div>
-</div>
-
-<script>
-var _trAns = {};
-var _trStep = 0;
-var _trWA = '5511970642228';
-var _trExtra = '';
-
-var _trFlow = [
-  {
-    key: 'tema',
-    q: 'Olá! Sobre o que você quer <em>falar com a gente?</em>',
-    opts: [
-      { ic:'📊', lb:'Power BI',           sb:'Dashboards e métricas'        },
-      { ic:'📗', lb:'Excel',              sb:'Planilhas e automações'        },
-      { ic:'📋', lb:'Relatórios',         sb:'Relatórios executivos'         },
-      { ic:'🤔', lb:'Não sei ainda',      sb:'Preciso de orientação'         }
-    ]
-  },
-  {
-    key: 'situacao',
-    q: 'Qual é a sua <em>situação atual?</em>',
-    opts: [
-      { ic:'🆕', lb:'Criar do zero',      sb:'Ainda não tenho nada'          },
-      { ic:'🔧', lb:'Melhorar algo',      sb:'Já existe, quer evoluir'       },
-      { ic:'⚡', lb:'Automatizar',        sb:'Processo muito manual'         },
-      { ic:'🚨', lb:'Problema urgente',   sb:'Algo errado ou parado'         }
-    ]
-  },
-  {
-    key: 'nome',
-    q: 'Último passo — <em>como posso te chamar?</em>',
-    field: true
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0A0E1A;--surface:#111728;--surface-2:#161E33;--line:#222C45;
+    --text:#E7EBF4;--muted:#9AA4BC;--wa:#25D366;--accent:#2BD4B8;
+    --aura-cold:#3B6BF0;--aura-warm:#2BD4B8;--aura-hot:#F5A524;--aura:var(--aura-cold);
   }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1100px 640px at 78% -8%, #16203a 0%, transparent 58%),
+      radial-gradient(900px 600px at 0% 100%, #121a30 0%, transparent 55%),
+      var(--ink);
+    color:var(--text);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5;overflow-x:hidden;
+  }
+  .container{width:100%;max-width:1080px;margin:0 auto;padding:0 22px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent)}
+  .sec-title{font-family:'Space Grotesk';font-weight:600;font-size:clamp(24px,4.4vw,34px);letter-spacing:-.02em;margin:14px 0 0}
+
+  /* ---------- NAV / BRAND ---------- */
+  .nav{position:sticky;top:0;z-index:60;background:rgba(10,14,26,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand-lock{display:inline-flex;align-items:center;gap:11px;text-decoration:none}
+  .brand-mark{width:34px;height:34px;flex:none}
+  .brand-mark svg{display:block;width:100%;height:100%}
+  .brand-word{font-family:'Space Grotesk';font-weight:600;font-size:19px;letter-spacing:-.02em;color:var(--text)}
+  .brand-accent{color:var(--accent)}
+  .nav-cta{display:none}
+  @media(min-width:720px){.nav-cta{display:inline-flex;align-items:center;border:1px solid var(--accent);background:transparent;color:var(--accent);font-family:'Space Grotesk';font-weight:600;font-size:13.5px;padding:9px 16px;border-radius:10px;cursor:pointer;transition:background .15s,color .15s}.nav-cta:hover{background:var(--accent);color:#06231f}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:54px 0 36px;display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+  .hero-copy h1{font-family:'Space Grotesk';font-weight:600;font-size:clamp(30px,6.4vw,48px);line-height:1.06;letter-spacing:-.025em;margin:18px 0 16px}
+  .hero-copy h1 em{font-style:normal;color:var(--accent)}
+  .hero-copy .lede{color:var(--muted);font-size:16px;line-height:1.6;max-width:46ch}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:rgba(255,255,255,.02)}
+
+  /* ---------- TEASER ---------- */
+  .stage{position:relative}
+  .teaser-glow{position:absolute;inset:-30px -16px;border-radius:40px;background:radial-gradient(60% 60% at 50% 35%, var(--aura-cold) 0%, transparent 70%);opacity:.28;filter:blur(38px);z-index:0;animation:breathe 6s ease-in-out infinite}
+  .teaser{position:relative;z-index:1;background:linear-gradient(180deg,var(--surface) 0%,#0E1424 100%);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 34px 80px -34px rgba(0,0,0,.72)}
+  .teaser .head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .teaser .greet{color:var(--muted);font-size:14.5px;line-height:1.6;margin-bottom:20px}
+  @keyframes breathe{0%,100%{transform:scale(1);opacity:.24}50%{transform:scale(1.06);opacity:.36}}
+
+  .avatar{width:42px;height:42px;border-radius:13px;flex:none;background:conic-gradient(from 200deg,var(--aura),var(--accent),var(--aura));display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;color:#0A0E1A;font-size:18px;transition:background 1.1s ease}
+  .who{display:flex;flex-direction:column;gap:2px}
+  .who b{font-family:'Space Grotesk';font-weight:600;font-size:16px;letter-spacing:-.01em}
+  .who small{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--accent);letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+  .who small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+
+  .start-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:none;cursor:pointer;background:var(--accent);color:#06231f;font-family:'Space Grotesk';font-weight:600;font-size:15px;padding:14px;border-radius:13px;box-shadow:0 14px 30px -12px rgba(43,212,184,.5);transition:transform .14s,box-shadow .14s}
+  .start-btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px rgba(43,212,184,.65)}
+  .start-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .start-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+  .start-btn svg{width:18px;height:18px}
+
+  /* ---------- MODAL ---------- */
+  .modal[hidden]{display:none}
+  .modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(5,8,15,.74);backdrop-filter:blur(5px);animation:fade .25s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal-wrap{position:relative;width:100%;max-width:470px;animation:pop .28s ease both}
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+  .glow{position:absolute;inset:-34px -14px -24px;border-radius:40px;background:radial-gradient(60% 55% at 50% 30%, var(--aura) 0%, transparent 70%);opacity:.3;filter:blur(38px);z-index:0;transition:background 1.1s ease;animation:breathe 6s ease-in-out infinite}
+
+  .card{position:relative;z-index:1;background:linear-gradient(180deg,var(--surface) 0%,#0E1424 100%);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:0 34px 80px -34px rgba(0,0,0,.8)}
+  .card-top{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.012)}
+  .progress{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.05em;padding-right:34px}
+  .modal-close{position:absolute;top:12px;right:12px;z-index:4;width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--muted);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:color .15s,border-color .15s}
+  .modal-close:hover{color:var(--text);border-color:var(--accent)}
+  .modal-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  .messages{padding:20px 18px 6px;display:flex;flex-direction:column;gap:12px;min-height:200px;max-height:42vh;overflow-y:auto}
+  .messages::-webkit-scrollbar{width:6px}.messages::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+  .msg{max-width:84%;font-size:14.5px;line-height:1.5;padding:11px 14px;border-radius:14px;animation:rise .35s ease both}
+  .bot{align-self:flex-start;background:var(--surface-2);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .user{align-self:flex-end;background:linear-gradient(180deg,#1C6E63,#155249);color:#EAFFFA;border-bottom-right-radius:5px}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .typing{align-self:flex-start;display:flex;gap:5px;padding:14px 16px;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;border-bottom-left-radius:5px}
+  .typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
+  .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,60%,100%{opacity:.25;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+
+  .options{display:flex;flex-direction:column;gap:9px;padding:6px 18px 20px}
+  .opt{text-align:left;width:100%;background:var(--surface-2);color:var(--text);border:1px solid var(--line);border-radius:13px;padding:13px 15px;font-family:'Inter';font-size:14.5px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:11px;transition:border-color .18s,background .18s,transform .12s}
+  .opt::before{content:"";width:8px;height:8px;border-radius:3px;flex:none;background:var(--line);transition:background .18s,box-shadow .18s}
+  .opt:hover{border-color:var(--accent);background:#19233a;transform:translateX(2px)}
+  .opt:hover::before{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .opt.multi::before{width:18px;height:18px;border-radius:6px;border:1.5px solid var(--line);background:transparent;box-shadow:none;display:grid;place-items:center;font-size:12px;font-weight:700;color:#06231f;line-height:1}
+  .opt.multi:hover{transform:none}
+  .opt.multi.sel{border-color:var(--accent);background:#16243a}
+  .opt.multi.sel::before{content:"✓";background:var(--accent);border-color:var(--accent);box-shadow:0 0 10px rgba(43,212,184,.5)}
+  .cont-btn{margin-top:5px}
+
+  .result{padding:6px 18px 22px;animation:rise .4s ease both}
+  .summary{background:#0D1322;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:16px}
+  .summary .row{display:flex;justify-content:space-between;gap:14px;padding:7px 0;font-size:13.5px}
+  .summary .row + .row{border-top:1px solid var(--line)}
+  .summary .k{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;flex:none}
+  .summary .v{color:var(--text);font-weight:500;text-align:right}
+  .wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;text-decoration:none;background:var(--wa);color:#062b17;font-family:'Space Grotesk';font-weight:600;font-size:15.5px;padding:15px;border-radius:13px;box-shadow:0 14px 30px -12px rgba(37,211,102,.6);transition:transform .14s,box-shadow .14s}
+  .wa-btn:hover{transform:translateY(-1px);box-shadow:0 18px 36px -12px rgba(37,211,102,.7)}
+  .wa-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .wa-btn svg{width:20px;height:20px;flex:none}
+
+  /* contato opcional */
+  .lead-form{margin:16px 0 6px;border-top:1px solid var(--line);padding-top:16px}
+  .lead-q{font-size:13.5px;color:var(--text);margin-bottom:10px}
+  .lead-q .opt-tag{color:var(--muted);font-weight:400}
+  .lead-input{width:100%;background:#0D1322;border:1px solid var(--line);border-radius:11px;padding:11px 13px;color:var(--text);font:inherit;font-size:14px;margin-bottom:9px}
+  .lead-input::placeholder{color:#6E778F}
+  .lead-input:focus{outline:none;border-color:var(--accent)}
+  .lead-save{width:100%;background:transparent;border:1px solid var(--line);color:var(--text);border-radius:11px;padding:11px;font-family:'Space Grotesk';font-weight:600;font-size:13.5px;cursor:pointer;transition:border-color .15s,color .15s}
+  .lead-save:hover{border-color:var(--accent);color:var(--accent)}
+  .lead-lgpd{margin-top:9px;color:var(--muted);font-size:11.5px;line-height:1.45}
+  .lead-done{color:var(--accent);font-size:14px;font-weight:500;text-align:center;padding:10px 0}
+  .restart{display:block;margin:14px auto 0;background:none;border:none;cursor:pointer;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+  .restart:hover{color:var(--text)}
+
+  /* ---------- SEÇÕES ---------- */
+  .section{padding:46px 0;border-top:1px solid var(--line)}
+  .grid-serv{display:grid;grid-template-columns:1fr;gap:14px;margin-top:26px}
+  .serv{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;cursor:pointer;text-align:left;width:100%;display:block;color:var(--text);font:inherit;transition:border-color .2s,transform .2s}
+  .serv:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .serv:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .serv h3{font-family:'Space Grotesk';font-weight:600;font-size:17px;margin-bottom:8px;display:flex;align-items:center;gap:9px}
+  .serv h3 .dot{width:9px;height:9px;border-radius:3px;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .serv p{color:var(--muted);font-size:14px;line-height:1.55}
+  .serv-cta{display:inline-block;margin-top:13px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--accent);opacity:.75;transition:opacity .2s}
+  .serv:hover .serv-cta{opacity:1}
+
+  .steps{display:grid;grid-template-columns:1fr;gap:16px;margin-top:26px}
+  .step{display:flex;gap:16px;align-items:flex-start}
+  .step .n{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:13px;color:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:6px 10px;flex:none;min-width:38px;text-align:center}
+  .step h4{font-family:'Space Grotesk';font-weight:600;font-size:16px;margin-bottom:4px}
+  .step p{color:var(--muted);font-size:14px;line-height:1.55}
+
+  .about{display:grid;grid-template-columns:1fr;gap:28px;margin-top:24px}
+  .about p{color:var(--muted);font-size:15px;line-height:1.65}
+  .about p strong{color:var(--text);font-weight:600}
+  .about-side{display:flex;flex-direction:column;align-items:center;gap:13px;text-align:center}
+  .about-photo{width:128px;height:128px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(from 200deg,var(--aura-cold),var(--accent),var(--aura-cold));color:#06231f;font-family:'Space Grotesk';font-weight:700;font-size:44px;box-shadow:0 22px 50px -22px rgba(0,0,0,.7);position:relative;overflow:hidden}
+  .about-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .about-cap b{font-family:'Space Grotesk';font-weight:600;font-size:15px;display:block}
+  .about-cap small{color:var(--muted);font-size:12.5px}
+
+  .faq{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+  .faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-family:'Space Grotesk';font-weight:600;font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--accent);font-size:22px;font-weight:400;line-height:1;transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details p{padding:0 18px 16px;color:var(--muted);font-size:14px;line-height:1.6}
+  .faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 48px;text-align:center}
+  footer .brand{font-family:'Space Grotesk';font-weight:600;font-size:16px}
+  footer .meta{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;margin-top:8px}
+  footer .privacy{margin:16px auto 0;max-width:520px;color:#6E778F;font-size:11.5px;line-height:1.5}
+
+  /* ---------- FLOATING ---------- */
+  .float{position:fixed;right:18px;bottom:18px;z-index:50;border:none;cursor:pointer;display:flex;align-items:center;gap:9px;background:var(--accent);color:#06231f;font-family:'Space Grotesk';font-weight:600;font-size:14px;padding:13px 17px;border-radius:999px;box-shadow:0 14px 30px -10px rgba(43,212,184,.55);transition:transform .14s,box-shadow .14s}
+  .float:hover{transform:translateY(-2px);box-shadow:0 18px 36px -10px rgba(43,212,184,.7)}
+  .float:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .float svg{width:18px;height:18px}
+
+  @media (min-width:900px){
+    .hero{grid-template-columns:1.05fr .95fr;gap:50px;padding:72px 0 44px}
+    .grid-serv{grid-template-columns:1fr 1fr}
+    .about{grid-template-columns:1.4fr .9fr;align-items:center}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body id="top">
+
+  <header class="nav">
+    <div class="container nav-in">
+      <a class="brand-lock" href="#top" aria-label="InsightBi — página inicial">
+        <span class="brand-mark">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="InsightBi">
+            <defs>
+              <linearGradient id="mkTile" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse"><stop stop-color="#141C30"/><stop offset="1" stop-color="#0E1424"/></linearGradient>
+              <filter id="mkAura" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.2"/></filter>
+            </defs>
+            <rect x="2.5" y="2.5" width="43" height="43" rx="12" fill="url(#mkTile)" stroke="#2A3550"/>
+            <rect x="13" y="28" width="5" height="8" rx="2" fill="#2C6F66"/>
+            <rect x="21.5" y="22" width="5" height="14" rx="2" fill="#2BD4B8" opacity="0.55"/>
+            <rect x="30" y="16" width="5" height="20" rx="2" fill="#2BD4B8"/>
+            <circle cx="32.5" cy="11" r="3.6" fill="#2BD4B8" filter="url(#mkAura)" opacity="0.85"/>
+            <circle cx="32.5" cy="11" r="3" fill="#3CEBCE"/>
+          </svg>
+        </span>
+        <span class="brand-word">Insight<span class="brand-accent">Bi</span></span>
+      </a>
+      <button class="nav-cta" onclick="openLaura()">Falar com a Laura</button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">BI &amp; Analytics sob medida</span>
+        <h1>Seus dados merecem mais do que <em>planilhas perdidas</em>.</h1>
+        <p class="lede">Planilhas de controle, dashboards e relatórios — analíticos e executivos — construídos com o rigor de quem vem do mercado financeiro.</p>
+        <div class="chips"><span class="chip">Power BI</span><span class="chip">SQL</span><span class="chip">Excel avançado</span><span class="chip">FIAP Data Analytics</span></div>
+      </div>
+      <div class="stage">
+        <div class="teaser-glow" aria-hidden="true"></div>
+        <div class="teaser">
+          <div class="head">
+            <div class="avatar">L</div>
+            <div class="who"><b>Laura</b><small>Agente de atendimento</small></div>
+          </div>
+          <p class="greet">Oi! Sou a Laura 👋 Em 3 perguntas rápidas eu entendo o que você precisa e te conecto direto com a InsightBi.</p>
+          <button class="start-btn" onclick="openLaura()">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.3c0 2.2 1 4.1 2.7 5.6L4 21l4.3-1.8c1.1.3 2.4.5 3.7.5 5.5 0 10-3.7 10-8.4S17.5 3 12 3z"/></svg>
+            Falar com a Laura
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <div class="container">
+    <section class="section">
+      <span class="eyebrow">O que eu entrego</span>
+      <h2 class="sec-title">Serviços</h2>
+      <div class="grid-serv">
+        <button class="serv" onclick="openLaura('Planilha de controle')"><h3><span class="dot"></span>Planilhas de controle</h3><p>Controle financeiro, de estoque ou operacional em planilhas vivas — fórmulas e automações que se atualizam sozinhas.</p><span class="serv-cta">Selecionar com a Laura →</span></button>
+        <button class="serv" onclick="openLaura('Dashboard')"><h3><span class="dot"></span>Dashboards</h3><p>Painéis em Power BI que mostram o que importa, sempre atualizados e fáceis de ler.</p><span class="serv-cta">Selecionar com a Laura →</span></button>
+        <button class="serv" onclick="openLaura('Relatório analítico')"><h3><span class="dot"></span>Relatórios analíticos</h3><p>Análises que explicam o porquê dos números: tendências, comparações e diagnósticos com profundidade.</p><span class="serv-cta">Selecionar com a Laura →</span></button>
+        <button class="serv" onclick="openLaura('Relatório executivo')"><h3><span class="dot"></span>Relatórios executivos</h3><p>O resumo certo para decidir: indicadores-chave em uma página, direto ao ponto.</p><span class="serv-cta">Selecionar com a Laura →</span></button>
+      </div>
+    </section>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <div class="container">
+    <section class="section">
+      <span class="eyebrow">Como funciona</span>
+      <h2 class="sec-title">Do diagnóstico à sua autonomia</h2>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><div><h4>Diagnóstico</h4><p>Entendo sua operação e o que você precisa enxergar para tomar decisões.</p></div></div>
+        <div class="step"><span class="n">02</span><div><h4>Desenvolvimento</h4><p>Construo a solução com os seus dados, do jeito que faz sentido para o seu dia a dia.</p></div></div>
+        <div class="step"><span class="n">03</span><div><h4>Entrega &amp; autonomia</h4><p>Você recebe pronto, com treinamento para usar sem depender de ninguém.</p></div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SOBRE -->
+  <div class="container">
+    <section class="section">
+      <span class="eyebrow">Quem faz</span>
+      <h2 class="sec-title">Sobre</h2>
+      <div class="about">
+        <div>
+          <p>A <strong>InsightBi</strong> é tocada por mim, <strong>Leandro</strong> — analista de BI com atuação em instituição financeira regulada (CVM/ANBIMA) e pós-graduação em <strong>Data Analytics pela FIAP</strong>. Transformo dados brutos em informação confiável com Power BI, SQL e Excel avançado. O mesmo rigor que aplico no mercado financeiro, aplico no seu projeto.</p>
+          <div class="chips"><span class="chip">Mercado financeiro</span><span class="chip">Governança de dados</span><span class="chip">Análise de dados</span></div>
+        </div>
+        <div class="about-side">
+          <div class="about-photo">
+            <img src="leandro.jpg" alt="Leandro, fundador da InsightBi" />
+          </div>
+          <div class="about-cap"><b>Leandro</b><small>Fundador · InsightBi</small></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FAQ -->
+  <div class="container">
+    <section class="section">
+      <span class="eyebrow">Dúvidas comuns</span>
+      <h2 class="sec-title">Perguntas frequentes</h2>
+      <div class="faq">
+        <details>
+          <summary>Quanto custa?</summary>
+          <p>Cada projeto é orçado conforme o escopo e a complexidade. Faça a triagem rápida com a Laura e eu te passo um orçamento sob medida — sem compromisso.</p>
+        </details>
+        <details>
+          <summary>Preciso ter meus dados organizados?</summary>
+          <p>Não. Trabalho a partir do que você tem — planilhas soltas, um sistema, ou até dados bagunçados. Organizar faz parte do serviço.</p>
+        </details>
+        <details>
+          <summary>Você atende remoto?</summary>
+          <p>Sim, 100% remoto, em todo o Brasil. Todo o processo — diagnóstico, desenvolvimento e treinamento — acontece online.</p>
+        </details>
+        <details>
+          <summary>Quanto tempo leva?</summary>
+          <p>Depende do escopo. Uma planilha de controle pode sair em poucos dias; um dashboard completo, em algumas semanas. Defino o prazo já no diagnóstico.</p>
+        </details>
+        <details>
+          <summary>Quais ferramentas você usa?</summary>
+          <p>Power BI para dashboards, Excel avançado para planilhas, e SQL por trás — sempre o que melhor resolve o seu caso.</p>
+        </details>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="brand">InsightBi</div>
+      <div class="meta">por Leandro · atendimento via Laura · resposta no WhatsApp</div>
+      <p class="privacy">Os dados informados são usados apenas para contato comercial e não são compartilhados com terceiros, em conformidade com a LGPD.</p>
+    </div>
+  </footer>
+
+  <button class="float" onclick="openLaura()" aria-label="Falar com a Laura">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.3c0 2.2 1 4.1 2.7 5.6L4 21l4.3-1.8c1.1.3 2.4.5 3.7.5 5.5 0 10-3.7 10-8.4S17.5 3 12 3z"/></svg>
+    Falar com a Laura
+  </button>
+
+  <!-- MODAL LAURA -->
+  <div class="modal" id="lauraModal" hidden>
+    <div class="modal-backdrop" onclick="closeLaura()"></div>
+    <div class="modal-wrap" role="dialog" aria-modal="true" aria-label="Atendimento com a Laura">
+      <div class="glow" aria-hidden="true"></div>
+      <section class="card">
+        <button class="modal-close" id="lauraClose" onclick="closeLaura()" aria-label="Fechar atendimento">&times;</button>
+        <header class="card-top">
+          <div class="avatar">L</div>
+          <div class="who"><b>Laura</b><small>Agente de atendimento</small></div>
+          <span class="progress" id="progress">1/3</span>
+        </header>
+        <div class="messages" id="messages" aria-live="polite"></div>
+        <div class="options" id="options"></div>
+      </section>
+    </div>
+  </div>
+
+<script>
+const PHONE = "5511970642228";
+const LEAD_ENDPOINT = ""; // cole aqui a URL do seu Apps Script (Web App) — registra o lead no Sheets + Notion
+const EXCL = "Não sei, preciso de orientação";
+const TREE = [
+  { key:"Solução", multi:true, q:"Oi! Eu sou a Laura, agente de atendimento da InsightBi 👋 Que tipo de solução você procura? (pode marcar mais de uma)",
+    options:[{label:"Planilha de controle"},{label:"Dashboard"},{label:"Relatório analítico"},{label:"Relatório executivo"},{label:EXCL,exclusive:true}] },
+  { key:"Dados", q:"Entendi. E como estão seus dados hoje?",
+    options:[{label:"Em sistema / banco de dados",score:2},{label:"Em planilhas Excel",score:1},{label:"Desorganizados / não tenho",score:0}] },
+  { key:"Prazo", q:"Por último: qual o prazo pra isso ficar pronto?",
+    options:[{label:"Urgente (esta semana)",score:2},{label:"2 a 4 semanas",score:1},{label:"Só explorando",score:0}] },
 ];
 
-function trOpen() {
-  _trAns = {}; _trStep = 0; _trExtra = '';
-  trRender();
-  document.getElementById('trOv').classList.add('on');
-  document.body.style.overflow = 'hidden';
+const messagesEl=document.getElementById("messages");
+const optionsEl=document.getElementById("options");
+const progressEl=document.getElementById("progress");
+let step=0,score=0,started=false,sent=false,finished=false,pendingPreselect=null;
+const solSelected=new Set();
+const answers={};
+
+function scrollDown(){messagesEl.scrollTop=messagesEl.scrollHeight}
+function addMsg(t,who){const d=document.createElement("div");d.className="msg "+who;d.textContent=t;messagesEl.appendChild(d);scrollDown()}
+function showTyping(){const t=document.createElement("div");t.className="typing";t.id="typing";t.innerHTML="<i></i><i></i><i></i>";messagesEl.appendChild(t);scrollDown()}
+function hideTyping(){const t=document.getElementById("typing");if(t)t.remove()}
+function setAura(){let c="var(--aura-cold)";if(score>=4)c="var(--aura-hot)";else if(score>=2)c="var(--aura-warm)";document.documentElement.style.setProperty("--aura",c)}
+
+/* single-select (perguntas 2 e 3) */
+function renderOptions(opts){optionsEl.innerHTML="";opts.forEach(o=>{const b=document.createElement("button");b.className="opt";b.textContent=o.label;b.onclick=()=>choose(o);optionsEl.appendChild(b)})}
+function choose(o){const n=TREE[step];answers[n.key]=o.label;score+=o.score;addMsg(o.label,"user");setAura();optionsEl.innerHTML="";step++;if(step<TREE.length)askStep();else finish()}
+
+/* multi-select (pergunta 1) */
+function renderMulti(node){
+  optionsEl.innerHTML="";
+  node.options.forEach(o=>{const b=document.createElement("button");b.className="opt multi";b.textContent=o.label;b.dataset.label=o.label;b.onclick=()=>toggleSol(o,b);optionsEl.appendChild(b)});
+  const cont=document.createElement("button");cont.className="start-btn cont-btn";cont.id="contBtn";cont.textContent="Continuar";cont.disabled=true;cont.onclick=commitSol;optionsEl.appendChild(cont);
+  if(pendingPreselect){const opt=node.options.find(o=>o.label===pendingPreselect);const btn=optionsEl.querySelector('.opt[data-label="'+pendingPreselect+'"]');if(opt&&btn)toggleSol(opt,btn);pendingPreselect=null;}
+}
+function toggleSol(o,b){
+  if(o.exclusive){
+    if(solSelected.has(o.label)){solSelected.delete(o.label);b.classList.remove("sel");}
+    else{solSelected.clear();optionsEl.querySelectorAll(".opt").forEach(x=>x.classList.remove("sel"));solSelected.add(o.label);b.classList.add("sel");}
+  }else{
+    if(solSelected.has(EXCL)){solSelected.delete(EXCL);const ex=optionsEl.querySelector('.opt[data-label="'+EXCL+'"]');if(ex)ex.classList.remove("sel");}
+    if(solSelected.has(o.label)){solSelected.delete(o.label);b.classList.remove("sel");}
+    else{solSelected.add(o.label);b.classList.add("sel");}
+  }
+  document.getElementById("contBtn").disabled=solSelected.size===0;
+}
+function commitSol(){
+  if(solSelected.size===0)return;
+  const labels=[...solSelected];answers["Solução"]=labels.join(", ");
+  const concrete=labels.filter(l=>l!==EXCL);let sol=0;if(concrete.length===1)sol=1;else if(concrete.length>=2)sol=2;score+=sol;
+  addMsg(labels.join(", "),"user");setAura();optionsEl.innerHTML="";step=1;askStep();
 }
 
-function trClose() {
-  document.getElementById('trOv').classList.remove('on');
-  document.body.style.overflow = '';
+function askStep(){const n=TREE[step];progressEl.textContent=(step+1)+"/3";optionsEl.innerHTML="";showTyping();setTimeout(()=>{hideTyping();addMsg(n.q,"bot");if(n.multi)renderMulti(n);else renderOptions(n.options);},650)}
+
+function tempLabel(){if(score>=4)return"Quente";if(score>=2)return"Morno";return"Frio"}
+function classify(){if(score>=4)return"Perfeito — esse é exatamente o tipo de projeto que a InsightBi entrega. Vou te conectar agora.";if(score>=2)return"Ótimo, dá pra estruturar uma boa solução. Vamos falar sobre os detalhes no WhatsApp.";return"Sem problema — dá pra te orientar sobre o melhor caminho, mesmo que ainda esteja no começo."}
+function buildWaLink(){const l=[`Olá! Vim pelo site da InsightBi e quero um orçamento.`,`• Solução: ${answers["Solução"]}`,`• Meus dados: ${answers["Dados"]}`,`• Prazo: ${answers["Prazo"]}`];return`https://wa.me/${PHONE}?text=${encodeURIComponent(l.join("\n"))}`}
+
+/* envia o lead UMA vez (com contato se preenchido); usa sendBeacon p/ funcionar até ao fechar */
+function sendLead(){
+  if(sent||!LEAD_ENDPOINT||!finished)return;
+  sent=true;
+  const nomeEl=document.getElementById("leadNome"),contEl=document.getElementById("leadContato");
+  const payload={data:new Date().toISOString(),nome:(nomeEl?nomeEl.value:"").trim(),contato:(contEl?contEl.value:"").trim(),solucao:answers["Solução"],dados:answers["Dados"],prazo:answers["Prazo"],score:score,classificacao:tempLabel()};
+  try{
+    const blob=new Blob([JSON.stringify(payload)],{type:"text/plain;charset=utf-8"});
+    if(navigator.sendBeacon){navigator.sendBeacon(LEAD_ENDPOINT,blob);}
+    else{fetch(LEAD_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)}).catch(()=>{});}
+  }catch(e){}
+}
+function saveContact(){
+  const nome=(document.getElementById("leadNome").value||"").trim();
+  const contato=(document.getElementById("leadContato").value||"").trim();
+  if(!nome&&!contato){document.querySelector("#leadForm .lead-q").textContent="É só preencher seu nome ou um contato 🙂";return;}
+  sendLead();
+  document.getElementById("leadForm").innerHTML='<p class="lead-done">✓ Contato registrado. A InsightBi vai te retornar em breve.</p>';
 }
 
-document.getElementById('trOv').addEventListener('click', function(e){
-  if (e.target === this) trClose();
+function finish(){
+  finished=true;progressEl.textContent="✓";showTyping();
+  setTimeout(()=>{
+    hideTyping();addMsg(classify(),"bot");
+    const w=document.createElement("div");w.className="result";
+    w.innerHTML=`
+      <div class="summary">
+        <div class="row"><span class="k">Solução</span><span class="v">${answers["Solução"]}</span></div>
+        <div class="row"><span class="k">Dados</span><span class="v">${answers["Dados"]}</span></div>
+        <div class="row"><span class="k">Prazo</span><span class="v">${answers["Prazo"]}</span></div>
+      </div>
+      <a class="wa-btn" href="${buildWaLink()}" target="_blank" rel="noopener" onclick="sendLead()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.879-1.017z"/></svg>
+        Continuar no WhatsApp
+      </a>
+      <div class="lead-form" id="leadForm">
+        <p class="lead-q">Prefere que a InsightBi te retorne? <span class="opt-tag">(opcional)</span></p>
+        <input class="lead-input" id="leadNome" type="text" placeholder="Seu nome" aria-label="Seu nome" />
+        <input class="lead-input" id="leadContato" type="text" placeholder="WhatsApp ou e-mail" aria-label="WhatsApp ou e-mail" />
+        <button class="lead-save" onclick="saveContact()">Registrar contato</button>
+        <p class="lead-lgpd">Seus dados são usados apenas para este retorno, em conformidade com a LGPD. Sem spam.</p>
+      </div>
+      <button class="restart" onclick="restart()">↺ Recomeçar</button>`;
+    optionsEl.appendChild(w);scrollDown();
+  },700);
+}
+
+function resetState(){step=0;score=0;sent=false;finished=false;solSelected.clear();for(const k in answers)delete answers[k];messagesEl.innerHTML="";optionsEl.innerHTML="";document.documentElement.style.setProperty("--aura","var(--aura-cold)")}
+function restart(){resetState();askStep()}
+
+function openLaura(preselect){
+  const m=document.getElementById("lauraModal");m.hidden=false;document.body.style.overflow="hidden";
+  if(preselect){pendingPreselect=preselect;resetState();started=true;askStep();}
+  else if(!started){started=true;askStep();}
+  document.getElementById("lauraClose").focus();
+}
+function closeLaura(){if(finished)sendLead();document.getElementById("lauraModal").hidden=true;document.body.style.overflow=""}
+
+/* acessibilidade: Esc fecha, Tab fica preso dentro do modal */
+document.addEventListener("keydown",e=>{
+  const m=document.getElementById("lauraModal");if(m.hidden)return;
+  if(e.key==="Escape"){closeLaura();return;}
+  if(e.key==="Tab"){
+    const list=[...m.querySelectorAll('button, a[href], input, [tabindex]:not([tabindex="-1"])')].filter(el=>!el.disabled&&el.offsetParent!==null);
+    if(!list.length)return;const first=list[0],last=list[list.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+    else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+  }
 });
-
-function trDots() {
-  var total = _trFlow.length;
-  var html = '';
-  for (var i = 0; i < total; i++) {
-    html += '<div class="tr-prog-d' + (i <= _trStep ? ' on' : '') + '"></div>';
-  }
-  document.getElementById('trProg').innerHTML = html;
-}
-
-function trRender() {
-  trDots();
-  var step = _trFlow[_trStep];
-  var b = document.getElementById('trBody');
-
-  if (step.field) {
-    b.innerHTML =
-      '<div class="tr-q">' + step.q + '</div>' +
-      '<input class="tr-inp" id="trInp" placeholder="Seu primeiro nome..." value="' + (_trAns.nome||'') + '" oninput="trCheckName()" />' +
-      '<div class="tr-nav">' +
-        '<button class="tr-btn-back" onclick="trBack()">← Voltar</button>' +
-        '<button class="tr-btn-wa" id="trWaBtn" onclick="trEnviar()" disabled>' +
-          '<svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>' +
-          'Iniciar conversa no WhatsApp' +
-        '</button>' +
-      '</div>';
-    setTimeout(function(){ var el=document.getElementById('trInp'); if(el){ el.focus(); trCheckName(); } }, 60);
-    return;
-  }
-
-  var optsHtml = '';
-  step.opts.forEach(function(o) {
-    var sel = _trAns[step.key] === o.lb ? ' sel' : '';
-    optsHtml +=
-      '<div class="tr-opt' + sel + '" onclick="trPick('' + step.key + '','' + o.lb.replace(/'/g,"\'") + '',this)">' +
-        '<div class="tr-opt-ic">' + o.ic + '</div>' +
-        '<div class="tr-opt-lb">' + o.lb + '</div>' +
-        '<div class="tr-opt-sb">' + o.sb + '</div>' +
-      '</div>';
-  });
-
-  var backBtn = _trStep > 0 ? '<button class="tr-btn-back" onclick="trBack()">← Voltar</button>' : '';
-
-  b.innerHTML =
-    '<div class="tr-q">' + step.q + '</div>' +
-    '<div class="tr-grid">' + optsHtml + '</div>' +
-    '<div class="tr-nav">' +
-      backBtn +
-      '<button class="tr-btn-next" id="trNxtBtn" onclick="trNext()" ' + (_trAns[step.key] ? '' : 'disabled') + '>Continuar →</button>' +
-    '</div>';
-}
-
-function trPick(key, val, el) {
-  document.querySelectorAll('.tr-opt').forEach(function(o){ o.classList.remove('sel'); });
-  el.classList.add('sel');
-  _trAns[key] = val;
-  var btn = document.getElementById('trNxtBtn');
-  if (btn) btn.disabled = false;
-}
-
-function trNext() { _trStep++; trRender(); }
-function trBack() { _trStep--; trRender(); }
-
-function trCheckName() {
-  var el = document.getElementById('trInp');
-  var btn = document.getElementById('trWaBtn');
-  if (el && btn) {
-    _trAns.nome = el.value.trim();
-    btn.disabled = _trAns.nome.length < 2;
-  }
-}
-
-function trEnviar() {
-  var msg =
-    '👋 Olá! Me chamo *' + _trAns.nome + '* e vim pelo site InsightBI.
-
-' +
-    '📌 *Assunto:* ' + (_trAns.tema || '—') + '
-' +
-    '🔧 *Situação:* ' + (_trAns.situacao || '—') +
-    (_trExtra ? '
-
-💰 *Serviços selecionados:*
-' + _trExtra : '') + '
-
-' +
-    'Gostaria de conversar!';
-  _trExtra = '';
-  window.location.href = 'https://wa.me/' + _trWA + '?text=' + encodeURIComponent(msg);
-  trClose();
-}
+/* garante captura do lead mesmo se a pessoa só fechar a aba */
+window.addEventListener("beforeunload",()=>{if(finished)sendLead();});
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&finished)sendLead();});
 </script>
-
 </body>
 </html>
