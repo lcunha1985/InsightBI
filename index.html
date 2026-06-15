@@ -187,6 +187,25 @@
   .faq details p{padding:0 18px 16px;color:var(--muted);font-size:14px;line-height:1.6}
   .faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 
+  /* ---------- LEAD MAGNET (planilha) ---------- */
+  .magnet{margin-top:26px;display:grid;grid-template-columns:1fr;gap:24px;background:linear-gradient(180deg,#10202b 0%,#0E1726 100%);border:1px solid #1D3A44;border-radius:20px;padding:28px}
+  .magnet-info p{color:var(--muted);font-size:15px;line-height:1.6;margin-top:12px}
+  .magnet-list{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:9px}
+  .magnet-list li{color:var(--text);font-size:14px;display:flex;gap:10px;align-items:flex-start}
+  .magnet-list li::before{content:"✓";color:var(--accent);font-weight:700;flex:none}
+  .magnet-form{background:#0D1322;border:1px solid var(--line);border-radius:16px;padding:22px;align-self:start}
+  .mf-title{font-family:'Space Grotesk';font-weight:600;font-size:16px;margin-bottom:14px}
+  .mg-input{width:100%;background:#0A0F1C;border:1px solid var(--line);border-radius:11px;padding:12px 14px;color:var(--text);font:inherit;font-size:14px;margin-bottom:10px}
+  .mg-input:focus{outline:none;border-color:var(--accent)}
+  .mg-input::placeholder{color:#6E778F}
+  .mg-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:none;cursor:pointer;background:var(--accent);color:#06231f;font-family:'Space Grotesk';font-weight:600;font-size:15px;padding:14px;border-radius:12px;box-shadow:0 14px 30px -12px rgba(43,212,184,.5);transition:transform .14s,box-shadow .14s}
+  .mg-btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px rgba(43,212,184,.65)}
+  .mg-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .mg-btn svg{width:18px;height:18px}
+  .mf-note{margin-top:10px;color:var(--muted);font-size:11.5px;line-height:1.45}
+  .mf-done{color:var(--accent);font-size:14px;font-weight:500;text-align:center;padding:10px 0;line-height:1.5}
+  @media(min-width:820px){.magnet{grid-template-columns:1.2fr .8fr;align-items:center}}
+
   footer{border-top:1px solid var(--line);padding:34px 0 48px;text-align:center}
   footer .brand{font-family:'Space Grotesk';font-weight:600;font-size:16px}
   footer .meta{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.06em;margin-top:8px}
@@ -238,7 +257,7 @@
         <span class="eyebrow">BI &amp; Analytics sob medida</span>
         <h1>Seus dados merecem mais do que <em>planilhas perdidas</em>.</h1>
         <p class="lede">Planilhas de controle, dashboards e relatórios — analíticos e executivos — construídos com o rigor de quem vem do mercado financeiro.</p>
-        <div class="chips"><span class="chip">Power BI</span><span class="chip">SQL</span><span class="chip">Excel avançado</span><span class="chip">FIAP Data Analytics</span></div>
+        <div class="chips"><span class="chip">Power BI</span><span class="chip">SQL</span><span class="chip">Excel avançado</span></div>
       </div>
       <div class="stage">
         <div class="teaser-glow" aria-hidden="true"></div>
@@ -271,6 +290,35 @@
     </section>
   </div>
 
+  <!-- PLANILHA GRÁTIS (lead magnet) -->
+  <div class="container">
+    <section class="section">
+      <div class="magnet">
+        <div class="magnet-info">
+          <span class="eyebrow">Material gratuito</span>
+          <h2 class="sec-title">Planilha de Controle Financeiro</h2>
+          <p>Organize as finanças do seu negócio em minutos — entradas, saídas e fluxo de caixa, com um resumo que se atualiza sozinho. Pronta para usar e 100% gratuita.</p>
+          <ul class="magnet-list">
+            <li>Entradas, saídas e saldo calculados automaticamente</li>
+            <li>Dashboard com gráficos por mês e por categoria</li>
+            <li>Menus prontos — é só preencher e usar</li>
+            <li>Compatível com Excel e Google Sheets</li>
+          </ul>
+        </div>
+        <div class="magnet-form" id="magnetForm">
+          <p class="mf-title">Receba a planilha grátis</p>
+          <input class="mg-input" id="mgNome" type="text" placeholder="Seu nome" aria-label="Seu nome" />
+          <input class="mg-input" id="mgContato" type="text" placeholder="WhatsApp ou e-mail" aria-label="WhatsApp ou e-mail" />
+          <button class="mg-btn" onclick="baixarPlanilha()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Baixar planilha
+          </button>
+          <p class="mf-note">Sem spam. Usamos seu contato apenas para enviar a planilha e novidades úteis, em conformidade com a LGPD.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
   <!-- COMO FUNCIONA -->
   <div class="container">
     <section class="section">
@@ -291,7 +339,7 @@
       <h2 class="sec-title">Sobre</h2>
       <div class="about">
         <div>
-          <p>A <strong>InsightBi</strong> é tocada por mim, <strong>Leandro</strong> — analista de BI com atuação em instituição financeira regulada (CVM/ANBIMA) e pós-graduação em <strong>Data Analytics pela FIAP</strong>. Transformo dados brutos em informação confiável com Power BI, SQL e Excel avançado. O mesmo rigor que aplico no mercado financeiro, aplico no seu projeto.</p>
+          <p>Sou <strong>Leandro</strong>, fundador da <strong>InsightBi</strong>. Com formação em <strong>Engenharia</strong> e pós-graduação em <strong>Data Analytics pela FIAP</strong>, atuo como analista de BI no mercado financeiro. Transformo dados brutos em informação confiável com Power BI, SQL e Excel avançado — e aplico no seu projeto o mesmo rigor que esse mercado exige.</p>
           <div class="chips"><span class="chip">Mercado financeiro</span><span class="chip">Governança de dados</span><span class="chip">Análise de dados</span></div>
         </div>
         <div class="about-side">
@@ -473,6 +521,27 @@ function finish(){
   },700);
 }
 
+function sendPlanilhaLead(nome,contato){
+  if(!LEAD_ENDPOINT)return;
+  const payload={data:new Date().toISOString(),nome:nome,contato:contato,solucao:"Planilha grátis (download)",dados:"",prazo:"",score:"",classificacao:"Lead - Planilha"};
+  try{const blob=new Blob([JSON.stringify(payload)],{type:"text/plain;charset=utf-8"});
+    if(navigator.sendBeacon)navigator.sendBeacon(LEAD_ENDPOINT,blob);
+    else fetch(LEAD_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)}).catch(()=>{});
+  }catch(e){}
+}
+function baixarPlanilha(){
+  const nome=(document.getElementById("mgNome").value||"").trim();
+  const contato=(document.getElementById("mgContato").value||"").trim();
+  const ci=document.getElementById("mgContato");
+  if(!contato){ci.style.borderColor="#E0556B";ci.focus();return;}
+  ci.style.borderColor="";
+  sendPlanilhaLead(nome,contato);
+  const a=document.createElement("a");
+  a.href="Controle-Financeiro-InsightBi.xlsx";
+  a.setAttribute("download","Controle-Financeiro-InsightBi.xlsx");
+  document.body.appendChild(a);a.click();a.remove();
+  document.getElementById("magnetForm").innerHTML='<p class="mf-done">✓ Pronto! O download começou.<br>Se não baixar automaticamente, <a href="Controle-Financeiro-InsightBi.xlsx" download style="color:var(--accent)">clique aqui</a>.</p>';
+}
 function resetState(){step=0;score=0;sent=false;finished=false;solSelected.clear();for(const k in answers)delete answers[k];messagesEl.innerHTML="";optionsEl.innerHTML="";document.documentElement.style.setProperty("--aura","var(--aura-cold)")}
 function restart(){resetState();askStep()}
 
